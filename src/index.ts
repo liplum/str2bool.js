@@ -1,13 +1,23 @@
 export interface Str2BoolOptions {
   /**
    * The string will be trimed before being converted.
+   * 
+   * true by default.
    */
   trim?: boolean
   /**
    * In strict mode, strings that cannot be considered either `true` or `false` result in `undefined`.
-   * In non-strict mode, the above strings will result in `false`.
+   * In non-strict mode, any other non-empty strings will be consider as `true`.
+   * 
+   * false by default.
    */
   strict?: boolean
+  /**
+   * Ignore the case.
+   * 
+   * true by default.
+   */
+  ignoreCase?: boolean
 }
 
 function str2bool(str: string, options?: Str2BoolOptions & { strict: false }): boolean
@@ -20,14 +30,16 @@ function str2bool(str: string, options?: Str2BoolOptions & { strict: true }): bo
  * 
  * The following strings will be considered as `true`.
  * - "true"
- * - "1", "-1", "0.1" and other strings can be converted to a number that isn't zero.
- * 
+ * - "1", "-1", "0.1" and other strings can be converted to a number that isn't zero
  * 
  * The following strings will be considered as `false`.
  * - "" (empty string)
  * - "false"
  * - "0"
  * 
+ * In strict mode, any non-empty string like "javascript" and "node.js" will be considered as `true`.
+ * If `trim` is true, the strings containing only whitespace characters will be trimmed to an empty string,
+ * and be considered as `false`.
  * 
  * @param str the input string
  * @param options The string will be trimed before being converted.
@@ -39,12 +51,19 @@ function str2bool(str: string, options?: Str2BoolOptions): boolean | undefined {
   }
   const strict = options?.strict ?? false
   const trim = options?.trim ?? true
+  const ignoreCase = options?.ignoreCase ?? true
   if (trim) {
     str = str.trim()
   }
   if (str.length <= 0) return false
-  if (str == "true") return true
-  if (str == "false") return false
+  if (str.length == 4) {
+    if (ignoreCase ? str.toLowerCase() == "true" : str == "true")
+      return true
+  }
+  if (str.length == 5) {
+    if (ignoreCase ? str.toLowerCase() == "false" : str == "false")
+      return false
+  }
 
   const maybeFloat = parseFloat(str)
   if (!isNaN(maybeFloat)) {
@@ -56,7 +75,7 @@ function str2bool(str: string, options?: Str2BoolOptions): boolean | undefined {
     return maybeInt != 0
   }
 
-  return strict ? undefined : false
+  return strict ? undefined : true
 }
 
 export default str2bool
