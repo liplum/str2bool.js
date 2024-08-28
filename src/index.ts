@@ -56,14 +56,14 @@ const matchIn = (str: string, cases: string[], {
 
 /**
  * 
- * Convert a string to boolean value.
+ * Convert a string to boolean.
  * 
- * The following strings will be considered as `true`.
+ * The following strings will be considered as `true`:
  * - "true"
  * - "1", "-1", "0.1" and other strings can be converted to a number that isn't zero
  * - "javascript", "node.js", and any non-empty string
  * 
- * The following strings will be considered as `false`.
+ * The following strings will be considered as `false`:
  * - "" (empty string)
  * - "false"
  * - "0"
@@ -71,7 +71,7 @@ const matchIn = (str: string, cases: string[], {
  * If {@link Str2BoolOptions.trim} is true, the strings containing only whitespace characters will be trimmed to an empty string,
  * and be considered as `false`.
  * 
- * If {@link Str2BoolOptions.truthy} or {@link Str2BoolOptions.truthy} are given,
+ * If {@link Str2BoolOptions.truthy} or {@link Str2BoolOptions.falsy} are given,
  * then they will be tested after the above cases.
  * 
  * @param str the input string
@@ -84,11 +84,11 @@ function str2bool(str: string, options?: Str2BoolOptions & { strict: false }): b
  * 
  * Convert a string to boolean value.
  * 
- * The following strings will be considered as `true`.
+ * The following strings will be considered as `true`:
  * - "true"
  * - "1", "-1", "0.1" and other strings can be converted to a number that isn't zero
  * 
- * The following strings will be considered as `false`.
+ * The following strings will be considered as `false`:
  * - "" (empty string)
  * - "false"
  * - "0"
@@ -98,7 +98,7 @@ function str2bool(str: string, options?: Str2BoolOptions & { strict: false }): b
  * If {@link Str2BoolOptions.trim} is true, the strings containing only whitespace characters will be trimmed to an empty string,
  * and be considered as `false`.
  * 
- * If {@link Str2BoolOptions.truthy} or {@link Str2BoolOptions.truthy} are given,
+ * If {@link Str2BoolOptions.truthy} or {@link Str2BoolOptions.falsy} are given,
  * then they will be tested after the above cases.
  * 
  * @param str the input string

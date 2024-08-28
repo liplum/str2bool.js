@@ -15,8 +15,9 @@ test("number", t => {
   t.assert(str2bool("0x00") === false)
 })
 
-test('javascript', t => {
+test('other strings', t => {
   t.assert(str2bool("javascript") === true)
+  t.assert(str2bool("javascript", { strict: true }) === undefined)
 })
 
 test('whitespace', t => {

@@ -1,7 +1,7 @@
 {
   "name": "@liplum/str2bool",
   "version": "0.0.1",
-  "description": "Con",
+  "description": "Convert a string to boolean",
   "main": "dist/index.js",
   "type": "module",
   "typings": "dist/index.d.ts",
