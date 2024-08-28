@@ -33,3 +33,12 @@ test("yes or no", t => {
   t.assert(str2bool("n", { yesOrNo: true }) === false)
   t.assert(str2bool("N", { yesOrNo: true }) === false)
 })
+
+test("truthy and falsy", t => {
+  const truthy = ["ok", "right"]
+  const falsy = ["no way", "nah"]
+  t.assert(str2bool("ok", { truthy, falsy }) === true)
+  t.assert(str2bool("right", { truthy, falsy }) === true)
+  t.assert(str2bool("no way", { truthy, falsy }) === false)
+  t.assert(str2bool("nah", { truthy, falsy }) === false)
+})

@@ -27,14 +27,58 @@ export interface Str2BoolOptions {
    */
   yesOrNo?: boolean
 
-  // truthy?: string[]
-
-  // falsy?: string[]
+  /**
+   * The strings will be considered as `true`
+   */
+  truthy?: string[]
+  /**
+   * The strings will be considered as `false`
+   */
+  falsy?: string[]
 }
 
-function str2bool(str: string, options?: Str2BoolOptions & { strict: false }): boolean
+const matchIn = (str: string, cases: string[], {
+  ignoreCase, trim
+}: {
+  ignoreCase: boolean
+  trim: boolean
+}) => {
+  for (let test of cases) {
+    test = trim ? `${test}`.trim() : `${test}`
+    if (str.length == test.length &&
+      (ignoreCase ? str.toLocaleLowerCase() == test.toLocaleLowerCase() : str == test)
+    ) {
+      return true
+    }
+  }
+  return false
+}
 
-function str2bool(str: string, options?: Str2BoolOptions & { strict: true }): boolean | undefined
+/**
+ * 
+ * Convert a string to boolean value.
+ * 
+ * The following strings will be considered as `true`.
+ * - "true"
+ * - "1", "-1", "0.1" and other strings can be converted to a number that isn't zero
+ * - "javascript", "node.js", and any non-empty string
+ * 
+ * The following strings will be considered as `false`.
+ * - "" (empty string)
+ * - "false"
+ * - "0"
+ * 
+ * If {@link Str2BoolOptions.trim} is true, the strings containing only whitespace characters will be trimmed to an empty string,
+ * and be considered as `false`.
+ * 
+ * If {@link Str2BoolOptions.truthy} or {@link Str2BoolOptions.truthy} are given,
+ * then they will be tested after the above cases.
+ * 
+ * @param str the input string
+ * @param options The string will be trimed before being converted.
+ * @returns a boolean
+ */
+function str2bool(str: string, options?: Str2BoolOptions & { strict: false }): boolean
 
 /**
  * 
@@ -49,14 +93,20 @@ function str2bool(str: string, options?: Str2BoolOptions & { strict: true }): bo
  * - "false"
  * - "0"
  * 
- * In strict mode, any non-empty string like "javascript" and "node.js" will be considered as `true`.
- * If `trim` is true, the strings containing only whitespace characters will be trimmed to an empty string,
+ * In strict mode, any non-empty string like "javascript" and "node.js" will result in `undefined`.
+ * 
+ * If {@link Str2BoolOptions.trim} is true, the strings containing only whitespace characters will be trimmed to an empty string,
  * and be considered as `false`.
+ * 
+ * If {@link Str2BoolOptions.truthy} or {@link Str2BoolOptions.truthy} are given,
+ * then they will be tested after the above cases.
  * 
  * @param str the input string
  * @param options The string will be trimed before being converted.
  * @returns a boolean
  */
+function str2bool(str: string, options?: Str2BoolOptions & { strict: true }): boolean | undefined
+
 function str2bool(str: string, options?: Str2BoolOptions): boolean | undefined {
   if (typeof str !== "string") {
     str = `${str}`
@@ -65,6 +115,9 @@ function str2bool(str: string, options?: Str2BoolOptions): boolean | undefined {
   const trim = options?.trim ?? true
   const ignoreCase = options?.ignoreCase ?? true
   const yesOrNo = options?.yesOrNo ?? false
+  const truthy = options?.truthy
+  const falsy = options?.falsy
+
   if (trim) {
     str = str.trim()
   }
@@ -105,6 +158,13 @@ function str2bool(str: string, options?: Str2BoolOptions): boolean | undefined {
   const maybeInt = parseInt(str)
   if (!isNaN(maybeInt)) {
     return maybeInt != 0
+  }
+
+  if (truthy && matchIn(str, truthy, { ignoreCase, trim })) {
+    return true
+  }
+  if (falsy && matchIn(str, falsy, { ignoreCase, trim })) {
+    return false
   }
 
   return strict ? undefined : true
