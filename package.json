@@ -35,5 +35,6 @@
     "boolean",
     "string to boolean",
     "to boolean"
-  ]
+  ],
+  "packageManager": "pnpm@9.9.0"
 }
