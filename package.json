@@ -1,5 +1,5 @@
 {
-  "name": "@liplum/2bool",
+  "name": "@liplum/str2bool",
   "version": "0.0.1",
   "description": "Con",
   "main": "dist/index.js",
@@ -18,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/liplum/2bool.js.git"
+    "url": "git+https://github.com/liplum/str2bool.js.git"
   },
   "author": "Liplum <Li_plum@outlook.com>",
   "devDependencies": {
@@ -27,11 +27,12 @@
     "typescript": "5.5.4"
   },
   "bugs": {
-    "url": "https://github.com/liplum/2bool.js/issues"
+    "url": "https://github.com/liplum/str2bool.js/issues"
   },
-  "homepage": "https://github.com/liplum/2bool.js#readme",
+  "homepage": "https://github.com/liplum/str2bool.js#readme",
   "keywords": [
     "boolean",
+    "string to boolean",
     "to boolean"
   ]
 }

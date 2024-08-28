@@ -1,6 +1,6 @@
 import test from 'ava'
-import { } from "./dist/index.js"
+import str2bool from "./dist/index.js"
 
-test("nothing", t => {
-  t.pass()
+test('"true"', t => {
+  t.assert(str2bool("true") === true)
 })
