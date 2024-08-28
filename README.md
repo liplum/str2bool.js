@@ -1,13 +1,13 @@
-# 2bool.js
+# str2bool.js
 
 ## Installation
 
 ```sh
-yarn add @liplum/2bool
+yarn add @liplum/str2bool
 # or
-npm i @liplum/2bool
+npm i @liplum/str2bool
 # or
-pnpm i @liplum/2bool
+pnpm i @liplum/str2bool
 ```
 
 ## Usage
@@ -15,5 +15,10 @@ pnpm i @liplum/2bool
 ### Basic usage
 
 ```js
-import { str2bool } from "@liplum/2bool"
+import str2bool from "@liplum/str2bool"
+console.log(str2bool("true") === true)
+console.log(str2bool("false") === false)
+console.log(str2bool("") === false)
+console.log(str2bool("0") === false)
+console.log(str2bool("1") === false)
 ```
