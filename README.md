@@ -49,7 +49,9 @@ The following strings will be considered as `false`:
 - "false"
 - "0"
 
-In strict mode, any non-empty string like "javascript" and "node.js" will result in `undefined`.
+[strict mode] The following strings will be considered as `undefined`:
+
+- any non-empty string like "javascript" and "node.js"
 
 If `trim` is true, the strings containing only whitespace characters will be trimmed to an empty string,
 and be considered as `false`.
@@ -62,18 +64,18 @@ Configure the options:
 ```ts
 export interface Str2BoolOptions {
   /**
-   * The string will be trimed before being converted.
-   * 
-   * true by default.
-   */
-  trim?: boolean
-  /**
    * In strict mode, strings that cannot be considered either `true` or `false` result in `undefined`.
    * In non-strict mode, any other non-empty strings will be consider as `true`.
    * 
    * false by default.
    */
   strict?: boolean
+  /**
+   * The string will be trimmed before being converted.
+   * 
+   * true by default.
+   */
+  trim?: boolean
   /**
    * Ignore the case.
    * 

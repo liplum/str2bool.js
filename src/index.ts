@@ -1,17 +1,17 @@
 export interface Str2BoolOptions {
   /**
-   * The string will be trimed before being converted.
-   * 
-   * true by default.
-   */
-  trim?: boolean
-  /**
    * In strict mode, strings that cannot be considered either `true` or `false` result in `undefined`.
    * In non-strict mode, any other non-empty strings will be consider as `true`.
    * 
    * false by default.
    */
   strict?: boolean
+  /**
+   * The string will be trimmed before being converted.
+   * 
+   * true by default.
+   */
+  trim?: boolean
   /**
    * Ignore the case.
    * 
@@ -75,7 +75,7 @@ const matchIn = (str: string, cases: string[], {
  * then they will be tested after the above cases.
  * 
  * @param str the input string
- * @param options The string will be trimed before being converted.
+ * @param options The string will be trimmed before being converted.
  * @returns a boolean
  */
 function str2bool(str: string, options?: Str2BoolOptions & { strict: false }): boolean
@@ -102,7 +102,7 @@ function str2bool(str: string, options?: Str2BoolOptions & { strict: false }): b
  * then they will be tested after the above cases.
  * 
  * @param str the input string
- * @param options The string will be trimed before being converted.
+ * @param options The string will be trimmed before being converted.
  * @returns a boolean
  */
 function str2bool(str: string, options?: Str2BoolOptions & { strict: true }): boolean | undefined
